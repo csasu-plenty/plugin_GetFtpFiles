@@ -68,8 +68,8 @@ class AssistantDataSource extends BaseWizardDataSource
     private function getAllEntities(): array
 
     {
-        $entities                                               = [];
-        $entities[FtpSettingsStep::IDENTIFIER]                = $this->getBasicSettings('email_');
+        $entities                                  = [];
+        $entities[FtpSettingsStep::IDENTIFIER]     = $this->getBasicSettings('ftp_');
 
         return $entities;
     }

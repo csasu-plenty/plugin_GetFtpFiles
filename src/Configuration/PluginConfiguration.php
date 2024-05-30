@@ -35,6 +35,8 @@ class PluginConfiguration
 
     public function getSFTPCredentials()
     {
-        return [];
+        /** @var SettingRepository $settingsRepository */
+        $settingsRepository = pluginApp(SettingRepository::class);
+        return $settingsRepository->getSettingsStartingWithPrefix('ftp_');
     }
 }

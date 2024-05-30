@@ -11,7 +11,7 @@ class SFTPClient
 {
     use Loggable;
 
-    const TRANSFER_PROTOCOL = 'SFTP';
+    const TRANSFER_PROTOCOL = 'FTP';
 
     /** @var LibraryCallContract */
     private $library;
@@ -43,14 +43,15 @@ class SFTPClient
      * @return array
      * @throws \Exception
      */
-    public function downloadFiles(string $folderPath)
+    public function readFiles(string $folderPath)
     {
+
         $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_downloadFiles', [
             'transferProtocol' => self::TRANSFER_PROTOCOL,
-            'host'             => $this->credentials['host'],
-            'user'             => $this->credentials['user'],
-            'password'         => $this->credentials['password'],
-            'port'             => $this->credentials['port'],
+            'host'             => $this->credentials['ftp_hostname'],
+            'user'             => $this->credentials['ftp_username'],
+            'password'         => $this->credentials['ftp_password'],
+            'port'             => $this->credentials['ftp_port'],
             'folderPath'       => $folderPath
         ]);
 
@@ -61,9 +62,9 @@ class SFTPClient
                         'errorMsg'   => $result['error_msg'],
                         'errorFile'  => $result['error_file'],
                         'errorLine'  => $result['error_line'],
-                        'host'       => $this->credentials['host'],
-                        'user'       => $this->credentials['user'],
-                        'port'       => $this->credentials['port'],
+                        'host'       => $this->credentials['ftp_hostname'],
+                        'user'       => $this->credentials['ftp_username'],
+                        'port'       => $this->credentials['ftp_port'],
                         'folderPath' => $folderPath
                     ]
                 );
