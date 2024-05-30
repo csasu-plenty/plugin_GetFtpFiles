@@ -17,8 +17,8 @@ class DynamicLoader implements WizardDynamicLoader
      */
     private $translator;
 
-    public function __construct(
-    ) {
+    public function __construct()
+    {
     }
 
 }

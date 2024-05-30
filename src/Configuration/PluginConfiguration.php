@@ -32,4 +32,9 @@ class PluginConfiguration
     {
         return $this->settingRepository->get($configKey);
     }
+
+    public function getSFTPCredentials()
+    {
+        return [];
+    }
 }

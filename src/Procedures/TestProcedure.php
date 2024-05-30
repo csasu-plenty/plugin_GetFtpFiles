@@ -4,9 +4,7 @@ namespace GetFtpFiles\Procedures;
 
 use Plenty\Modules\Authorization\Services\AuthHelper;
 use Plenty\Modules\EventProcedures\Events\EventProceduresTriggered;
-use Plenty\Modules\Order\Models\Order;
 use Plenty\Plugin\Log\Loggable;
-use GetFtpFiles\Configuration\PluginConfiguration;
 use Throwable;
 
 /**

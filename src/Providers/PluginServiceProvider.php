@@ -3,11 +3,9 @@ namespace GetFtpFiles\Providers;
 
 use ErrorException;
 use Exception;
-use GetFtpFiles\Assistants\DataSource\AssistantDataSource;
 use Plenty\Modules\Cron\Services\CronContainer;
 use Plenty\Modules\EventProcedures\Services\Entries\ProcedureEntry;
 use Plenty\Modules\EventProcedures\Services\EventProceduresService;
-use Plenty\Modules\PlentyMarketplace\Contracts\SubscriptionInformationServiceContract;
 use Plenty\Modules\Wizard\Contracts\WizardContainerContract;
 use Plenty\Plugin\Application;
 use Plenty\Plugin\ServiceProvider;
@@ -38,7 +36,7 @@ class PluginServiceProvider extends ServiceProvider
 
         $this->bootProcedures($eventProceduresService);
 
-        $wizardContainerContract->register('GetFtpFiles_wizard', AssistantDataSource::class);
+        $wizardContainerContract->register('GetFtpFiles_wizard', GetFtpFilesAssistant::class);
         $this->getApplication()->register(GetFtpFilesRouteServiceProvider::class);
     }
 

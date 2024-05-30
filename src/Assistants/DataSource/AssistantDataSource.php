@@ -5,6 +5,7 @@ namespace GetFtpFiles\Assistants\DataSource;
 use Plenty\Modules\Wizard\Services\DataSources\BaseWizardDataSource;
 use Plenty\Plugin\Log\Loggable;
 use GetFtpFiles\Assistants\Steps\FtpSettingsStep;
+use GetFtpFiles\Repositories\SettingRepository;
 
 class AssistantDataSource extends BaseWizardDataSource
 {
