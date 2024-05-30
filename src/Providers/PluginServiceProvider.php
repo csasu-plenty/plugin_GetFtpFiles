@@ -32,8 +32,7 @@ class PluginServiceProvider extends ServiceProvider
         WizardContainerContract $wizardContainerContract,
         Application $app
     ) {
-        $container->add(CronContainer::DAILY, TestCron::class);
-
+        //$container->add(CronContainer::DAILY, TestCron::class);
         $this->bootProcedures($eventProceduresService);
 
         $wizardContainerContract->register('GetFtpFiles_wizard', GetFtpFilesAssistant::class);
@@ -45,16 +44,5 @@ class PluginServiceProvider extends ServiceProvider
      */
     private function bootProcedures(EventProceduresService $eventProceduresService)
     {
-
-        $eventProceduresService->registerProcedure(
-            'GetFtpFiles',
-            ProcedureEntry::EVENT_TYPE_ORDER,
-            [
-                'de' => ' GetFtpFiles: Return',
-                'en' => ' GetFtpFiles: Return'
-            ],
-            '\GetFtpFiles\Procedures\TestProcedure@run'
-        );
-
     }
 }
