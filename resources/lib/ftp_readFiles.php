@@ -11,6 +11,16 @@ $path = SdkRestApi::getParam('folderPath');
 
 $ftp = new FtpClient($protocol, $host, $user, $password, $port);
 
-$files = $ftp->getFileNames($path);
+$allEntries = $ftp->getFileNames($path);
+
+$files = [];
+
+foreach ($allEntries as $entry) {
+
+    if(empty($entry) || is_dir($entry)){
+        continue;
+    }
+    $files[] = $entry;
+}
 
 return $files;

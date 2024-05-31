@@ -117,10 +117,7 @@ class FtpClient
 
         $result = curl_exec($this->curlHandle);
 
-        return [
-            explode("\n", trim(mb_convert_encoding($result, 'UTF-8', 'UTF-8'))),
-            explode("\n", trim($result))
-        ];
+        return explode("\n", trim(mb_convert_encoding($result, 'UTF-8', 'UTF-8')));
     }
 
 
