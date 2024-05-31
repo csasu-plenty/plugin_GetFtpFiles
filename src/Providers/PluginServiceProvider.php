@@ -10,7 +10,7 @@ use Plenty\Modules\Wizard\Contracts\WizardContainerContract;
 use Plenty\Plugin\Application;
 use Plenty\Plugin\ServiceProvider;
 use GetFtpFiles\Assistants\GetFtpFilesAssistant;
-use GetFtpFiles\Crons\TestCron;
+use GetFtpFiles\Crons\ProcessFtpFilesCron;
 
 /**
  * Class PluginServiceProvider
@@ -32,7 +32,7 @@ class PluginServiceProvider extends ServiceProvider
         WizardContainerContract $wizardContainerContract,
         Application $app
     ) {
-        //$container->add(CronContainer::DAILY, TestCron::class);
+        $container->add(CronContainer::DAILY, ProcessFtpFilesCron::class);
         $this->bootProcedures($eventProceduresService);
 
         $wizardContainerContract->register('GetFtpFiles_wizard', GetFtpFilesAssistant::class);
