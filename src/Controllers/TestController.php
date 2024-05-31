@@ -17,10 +17,8 @@ class TestController extends Controller
     {
         //$test = pluginApp(TestCron::class);
 
-        //F(szLuODs#yP
-
-
         //test data
+        /*
         $settingsRepository = pluginApp(SettingRepository::class);
         try {
             $settingsRepository->save('ftp_hostname', 'ftp.sasu.ro');
@@ -34,6 +32,7 @@ class TestController extends Controller
 
                 ]);
         }
+        */
 
         return $filesService->getFtpFileNames();
     }

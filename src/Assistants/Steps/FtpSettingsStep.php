@@ -67,7 +67,7 @@ class FtpSettingsStep implements Step
                             'type'    => 'text',
                             'options' => [
                                 'name'       => 'assistant.port',
-                                'isPassword' => true,
+                                'isPassword' => false,
                                 'required'   => true
                             ]
                         ]
