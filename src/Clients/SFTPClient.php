@@ -46,7 +46,7 @@ class SFTPClient
     public function readFiles(string $folderPath)
     {
 
-        $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_downloadFiles', [
+        $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_readFiles', [
             'transferProtocol' => self::TRANSFER_PROTOCOL,
             'host'             => $this->credentials['ftp_hostname'],
             'user'             => $this->credentials['ftp_username'],
