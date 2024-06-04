@@ -77,7 +77,7 @@ class ReadFilesService
 
         //process files from FTP
         foreach ($files as $file){
-            $fileData = $this->getDataFromFileName($file);
+            $fileData = $this->getDataFromFileName($file['fileName']);
             if (isset($fileData['error'])){
                 //log error
             } else {
