@@ -68,6 +68,17 @@ class ReadFilesService
         return $fileData;
     }
 
+    private function deleteFileFromFtp($fileName)
+    {
+        try {
+            $files = $this->sftpClient->deleteFile($fileName);
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+
+        return $files;
+    }
+
     public function processFtpFiles()
     {
         $response = [];
@@ -86,7 +97,8 @@ class ReadFilesService
                     //log error
                     $fileData['error'] = 'There is no variation with this variation number!';
                 } else{
-                    $fileData['variationId'] = $variation['itemId'];
+                    $fileData['itemId'] = $variation['itemId'];
+                    $fileData['variationId'] = $variation['variationId'];
                     $fileData['imageData'] = $file['contents'];
 
                     if ($this->variationHelper->addImageToVariation(
@@ -94,12 +106,13 @@ class ReadFilesService
                             'fileType'          => $fileData['fileExtension'],
                             'uploadFileName'    => $fileData['fileName'],
                             'uploadImageData'   => $fileData['imageData'],
-                            'itemId'            => $fileData['variationId'],
-                            'position'          => $fileData['imagePosition']
+                            'itemId'            => $fileData['itemId'],
+                            'variationId'       => $fileData['variationId'],
                         ],
-                        $variation['variationId'],
-                        $fileData['imagePosition'])){
-                        //delete file from FTP
+                        (int)$fileData['variationId'],
+                        (int)$fileData['imagePosition'])
+                    ){
+                        $this->deleteFileFromFtp($file['fileName']);
                     } else {
                         //log error
                     }

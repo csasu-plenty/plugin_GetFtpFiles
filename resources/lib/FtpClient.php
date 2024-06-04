@@ -145,6 +145,25 @@ class FtpClient
         return '';
     }
 
+    public function deleteFile(string $fileName): string
+    {
+        if ($fp = fopen('php://temp', 'r+')) {
+            try {
+                $this->curlHandle = $this->connect($fileName);
+                curl_setopt($this->curlHandle, CURLOPT_CUSTOMREQUEST, "DELETE");
+                curl_setopt($this->curlHandle, CURLOPT_FILE, $fp);
+                curl_exec($this->curlHandle);
+                rewind($fp);
+
+                return 1;
+            } finally {
+                fclose($fp);
+            }
+        }
+
+        return '';
+    }
+
     /**
      * Renames a given FTP file path.
      *

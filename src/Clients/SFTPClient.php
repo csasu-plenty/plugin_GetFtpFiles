@@ -57,7 +57,7 @@ class SFTPClient
 
         if (is_array($result) && array_key_exists('error', $result) && $result['error'] === true) {
             $this->getLogger(__METHOD__)
-                ->error(PluginConfiguration::PLUGIN_NAME . '::error.downloadFilesError',
+                ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
                     [
                         'errorMsg'   => $result['error_msg'],
                         'errorFile'  => $result['error_file'],
@@ -66,6 +66,39 @@ class SFTPClient
                         'user'       => $this->credentials['ftp_username'],
                         'port'       => $this->credentials['ftp_port'],
                         'folderPath' => $folderPath
+                    ]
+                );
+
+            throw new \Exception($result['error_msg']);
+        }
+
+        return $result;
+    }
+
+
+    public function deleteFile(string $fileName)
+    {
+
+        $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::deleteFile', [
+            'transferProtocol' => self::TRANSFER_PROTOCOL,
+            'host'             => $this->credentials['ftp_hostname'],
+            'user'             => $this->credentials['ftp_username'],
+            'password'         => $this->credentials['ftp_password'],
+            'port'             => $this->credentials['ftp_port'],
+            'fileName'         => $fileName
+        ]);
+
+        if (is_array($result) && array_key_exists('error', $result) && $result['error'] === true) {
+            $this->getLogger(__METHOD__)
+                ->error(PluginConfiguration::PLUGIN_NAME . '::error.deleteFileError',
+                    [
+                        'errorMsg'   => $result['error_msg'],
+                        'errorFile'  => $result['error_file'],
+                        'errorLine'  => $result['error_line'],
+                        'host'       => $this->credentials['ftp_hostname'],
+                        'user'       => $this->credentials['ftp_username'],
+                        'port'       => $this->credentials['ftp_port'],
+                        'fileName'   => $fileName
                     ]
                 );
 
