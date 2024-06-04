@@ -37,7 +37,7 @@ class VariationHelper
         ///** @var ItemImage[] $imageList */
         //$imageList = $itemImageRepository->findByVariationId($variationId);
 
-        //$result = $itemImageRepository->upload($imageData);
+        $result = $itemImageRepository->upload($imageData);
         return 1;
     }
 }

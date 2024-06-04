@@ -81,27 +81,30 @@ class ReadFilesService
             if (isset($fileData['error'])){
                 //log error
             } else {
+                $fileData['imageData'] = $file['contents'];
                 $variation = $this->variationHelper->getVariationByNumber($fileData['variationNumber']);
                 if (is_null($variation)){
                     //log error
                     $fileData['error'] = 'There is no variation with this variation number!';
                 } else{
-                    $fileData['variationId'] = json_encode($variation);
+                    $fileData['variationId'] = $variation['itemId'];
+
+                    if ($this->variationHelper->addImageToVariation(
+                        [
+                            'fileType'          => $fileData['fileExtension'],
+                            'uploadFileName'    => $fileData['fileName'],
+                            'uploadImageData'   => $fileData['imageData'],
+                            'itemId'            => $fileData['variationId'],
+                            'position'          => $fileData['imagePosition']
+                        ],
+                        $variation['variationId'],
+                        $fileData['imagePosition'])){
+                        //delete file from FTP
+                    } else {
+                        //log error
+                    }
                 }
 
-                if ($this->variationHelper->addImageToVariation(
-                    [
-                        'fileType'          => $fileData['fileExtension'],
-                        'uploadFileName'    => $fileData['fileName'],
-                        'uploadImageData'   => $fileData['imageData'],
-                        'itemId'            => $fileData['variationId']
-                    ],
-                    $variation['variationId'],
-                    $fileData['imagePosition'])){
-                    //delete file from FTP
-                } else {
-                    //log error
-                }
             }
             $response[] = $fileData;
         }
