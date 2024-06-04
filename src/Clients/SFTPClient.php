@@ -79,7 +79,7 @@ class SFTPClient
     public function deleteFile(string $fileName)
     {
 
-        $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::deleteFile', [
+        $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_deleteFile', [
             'transferProtocol' => self::TRANSFER_PROTOCOL,
             'host'             => $this->credentials['ftp_hostname'],
             'user'             => $this->credentials['ftp_username'],
