@@ -81,13 +81,13 @@ class ReadFilesService
             if (isset($fileData['error'])){
                 //log error
             } else {
-                $fileData['imageData'] = $file['contents'];
                 $variation = $this->variationHelper->getVariationByNumber($fileData['variationNumber']);
                 if (is_null($variation)){
                     //log error
                     $fileData['error'] = 'There is no variation with this variation number!';
                 } else{
                     $fileData['variationId'] = $variation['itemId'];
+                    $fileData['imageData'] = $file['contents'];
 
                     if ($this->variationHelper->addImageToVariation(
                         [

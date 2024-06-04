@@ -136,7 +136,7 @@ class FtpClient
                 curl_exec($this->curlHandle);
                 rewind($fp);
 
-                return base64_encode((stream_get_contents($fp));
+                return base64_encode(stream_get_contents($fp));
             } finally {
                 fclose($fp);
             }
