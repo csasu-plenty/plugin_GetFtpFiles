@@ -152,10 +152,10 @@ class FtpClient
                 $this->curlHandle = $this->connect($fileName);
                 curl_setopt($this->curlHandle, CURLOPT_CUSTOMREQUEST, "DELETE");
                 curl_setopt($this->curlHandle, CURLOPT_FILE, $fp);
-                curl_exec($this->curlHandle);
+                $response = curl_exec($this->curlHandle);
                 rewind($fp);
 
-                return 1;
+                return $response;
             } finally {
                 fclose($fp);
             }

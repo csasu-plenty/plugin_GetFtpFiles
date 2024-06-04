@@ -112,7 +112,7 @@ class ReadFilesService
                         (int)$fileData['variationId'],
                         (int)$fileData['imagePosition'])
                     ){
-                        $this->deleteFileFromFtp($file['fileName']);
+                        $fileData['deleted'] = $this->deleteFileFromFtp($file['fileName']);
                     } else {
                         //log error
                     }

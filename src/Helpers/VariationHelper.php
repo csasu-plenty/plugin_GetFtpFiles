@@ -57,8 +57,8 @@ class VariationHelper
                    If the specified position for the added image is greater than the last position,
                    the new image will be added at the end of the list.*/
                 /** @var DeleteResponse $response */
-                $response = $itemImageRepository->delete($imageList[$position + 1]['id']);
-                if ($response->affectedRows === 1){
+                $response = $itemImageRepository->delete($imageList[$position + 1]['id'])->toArray();
+                if ($response['affectedRows'] === 1){
                     return true;
                 } else {
                     //the new image was added but the previous could not be deleted
