@@ -9,9 +9,9 @@ use Plenty\Plugin\Log\Loggable;
 class TestController extends Controller
 {
     use Loggable;
-    
+
     public function testMethod(ReadFilesService $filesService)
     {
-        return $filesService->getFtpFileNames();
+        return $filesService->processFtpFiles();
     }
 }

@@ -13,12 +13,6 @@ class ProcessFtpFilesCron extends CronHandler
 
     public function handle(ReadFilesService $readFilesService)
     {
-        //get files from FTP
-        $files = $readFilesService->getFtpFileNames();
-
-        //process files from FTP
-        foreach ($files as $file){
-            //process current file
-        }
+        $readFilesService->processFtpFiles();
     }
 }
