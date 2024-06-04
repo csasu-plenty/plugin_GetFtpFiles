@@ -46,17 +46,6 @@ class ReadFilesService
         return $files;
     }
 
-    private function getFileContents()
-    {
-        try {
-            $files = $this->sftpClient->('');
-        } catch (\Exception $exception) {
-            return $exception->getMessage();
-        }
-
-        return $files;
-    }
-
     private function getDataFromFileName($fileName)
     {
         $fileData = [];
@@ -88,7 +77,7 @@ class ReadFilesService
 
         //process files from FTP
         foreach ($files as $file){
-            $fileData = $this->getDataFromFileName($file['fileName']);
+            $fileData = $this->getDataFromFileName($file);
             if (isset($fileData['error'])){
                 //log error
             } else {
