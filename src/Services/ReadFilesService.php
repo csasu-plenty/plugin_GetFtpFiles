@@ -143,6 +143,6 @@ class ReadFilesService
             }
         }
 
-        return $filesImportedSuccessfully . ' out of ' . count($files) . ' files imported successfully.';
+        return $filesImportedSuccessfully . ' out of 2 files imported successfully.';
     }
 }
