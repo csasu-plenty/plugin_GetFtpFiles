@@ -72,7 +72,11 @@ class SFTPClient
         return $result;
     }
 
-
+    /**
+     * @param string $fileName
+     * @return array
+     * @throws Exception
+     */
     public function deleteFile(string $fileName)
     {
 
