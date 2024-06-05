@@ -168,13 +168,13 @@ class FtpClient
 
             curl_setopt($this->curlHandle, CURLOPT_QUOTE, array('DELE ' . $fileName));
             curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, 1);
-            curl_exec($this->curlHandle);
+            $response = curl_exec($this->curlHandle);
 
-            if(curl_errno($this->curlHandle)){
-                throw new \Exception(curl_error($this->curlHandle));
-            }
+//            if(curl_errno($this->curlHandle)){
+//                throw new \Exception(curl_error($this->curlHandle));
+//            }
 
-            return true;
+            return $response;
         } catch (Exception $exception) {
             throw $exception;
         }
