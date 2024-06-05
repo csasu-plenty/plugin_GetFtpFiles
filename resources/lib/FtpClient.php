@@ -153,9 +153,9 @@ class FtpClient
     public function deleteFile(string $fileName, string $path): string
     {
         try {
-            $this->curlHandle = $this->connect('');
+            $this->curlHandle = $this->connect($path);
 
-            curl_setopt($this->curlHandle, CURLOPT_QUOTE, array('DELE ' . $path . '/' . $fileName));
+            curl_setopt($this->curlHandle, CURLOPT_QUOTE, array('DELE ' . $fileName));
             curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, 1);
             $response = curl_exec($this->curlHandle);
 
