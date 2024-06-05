@@ -8,7 +8,7 @@ $user       = SdkRestApi::getParam('user');
 $password   = SdkRestApi::getParam('password');
 $port       = SdkRestApi::getParam('port');
 $path       = SdkRestApi::getParam('folderPath');
-
+return [$protocol, $host, $user, $password, $port, $path];
 $ftp = new FtpClient($protocol, $host, $user, $password, $port);
 
 $allEntries = $ftp->getFileNames($path);
