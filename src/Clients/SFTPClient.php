@@ -85,7 +85,7 @@ class SFTPClient
             'user'             => $this->credentials['ftp_username'],
             'password'         => $this->credentials['ftp_password'],
             'port'             => $this->credentials['ftp_port'],
-            'folder'           => $this->credentials['ftp_folder'],
+            'folderPath'       => $this->credentials['ftp_folder'],
             'fileName'         => $fileName
         ]);
 

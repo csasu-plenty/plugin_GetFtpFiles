@@ -43,7 +43,13 @@ class ReadFilesService
         try {
             $files = $this->sftpClient->readFiles('');
         } catch (\Exception $exception) {
-            return $exception->getMessage();
+            $this->getLogger(__METHOD__)
+                ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
+                    [
+                        'errorMsg'  => $exception->getMessage()
+                    ]
+                );
+            return [];
         }
 
         return $files;

@@ -2,37 +2,37 @@
   "formatVersion": 1,
   "menu": {
     "settings": {
-      "label": "general.settings",
+      "label": "Config.settings",
       "formFields": {
         "host": {
           "type": "inputText",
           "required": true,
-          "label": "general.host",
+          "label": "Config.host",
           "options": {}
         },
         "port": {
           "type": "inputText",
           "required": true,
-          "label": "general.port",
+          "label": "Config.port",
           "options": {}
         },
         "username": {
           "type": "inputText",
           "required": true,
-          "label": "general.username",
+          "label": "Config.username",
           "options": {}
         },
         "password": {
           "type": "inputText",
           "required": true,
-          "label": "general.password",
+          "label": "Config.password",
           "options": {
             "isPassword": true
           },
           "folderPath": {
             "type": "inputText",
             "required": true,
-            "label": "general.folderPath",
+            "label": "Config.folderPath",
             "options": {}
           }
         }
