@@ -28,6 +28,12 @@
           "label": "general.password",
           "options": {
             "isPassword": true
+          },
+          "folderPath": {
+            "type": "inputText",
+            "required": true,
+            "label": "general.folderPath",
+            "options": {}
           }
         }
       }

@@ -5,6 +5,7 @@ namespace GetFtpFiles\Repositories;
 use GetFtpFiles\Contracts\SettingRepositoryContract;
 use GetFtpFiles\Models\Setting;
 use GetFtpFiles\Validators\SettingsSaveValidator;
+use Plenty\Plugin\ConfigRepository;
 use Plenty\Exceptions\ValidationException;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
 use Plenty\Modules\Plugin\DataBase\Contracts\Model;
@@ -17,12 +18,18 @@ class SettingRepository implements SettingRepositoryContract
     private $database;
 
     /**
+     * @var ConfigRepository
+     */
+    private $configRepository;
+
+    /**
      * SettingsRepository constructor.
      *
      * @param  DataBase  $database
      */
-    public function __construct(DataBase $database)
+    public function __construct(ConfigRepository $configRepository, DataBase $database)
     {
+        $this->configRepository = $configRepository;
         $this->database = $database;
     }
 
@@ -76,11 +83,14 @@ class SettingRepository implements SettingRepositoryContract
      */
     public function get($key)
     {
+        /*
         $settings = $this->database->query(Setting::class)
             ->where('key', '=', $key)
             ->get();
 
         return is_array($settings) ? $settings[0]->value : null;
+        */
+        $this->configRepository->get(self::PLUGIN_NAME . '.' . $key);
     }
 
     /**
