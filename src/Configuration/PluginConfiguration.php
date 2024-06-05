@@ -34,9 +34,9 @@ class PluginConfiguration
     }
 
     /**
-     * @return array|mixed|string[]
+     * @return array|true[]
      */
-    public function getSFTPCredentials()
+    public function getSFTPCredentials(): array
     {
         $ftpHost = $this->getConfigValue('host');
         $ftpUser = $this->getConfigValue('username');

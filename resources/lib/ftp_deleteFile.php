@@ -11,6 +11,6 @@ $fileName   = SdkRestApi::getParam('fileName');
 
 $ftp = new FtpClient($protocol, $host, $user, $password, $port);
 
-return json_encode($ftp->deleteFile($fileName));
+return json_encode($ftp->deleteFile($fileName, $host));
 
 
