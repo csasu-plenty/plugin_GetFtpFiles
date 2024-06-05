@@ -81,21 +81,20 @@ class ReadFilesService
 
     public function processFtpFiles()
     {
-        $response = [];
+        $errorMessages = [];
+        $filesImportedSuccessfully = 0;
 
-        //get files from FTP
         $files = $this->getFtpFileNames();
 
-        //process files from FTP
         foreach ($files as $file){
             $fileData = $this->getDataFromFileName($file['fileName']);
             if (isset($fileData['error'])){
-                //log error
+                $errorMessages[] = 'Wrong file name for: ' . $file['fileName'];
             } else {
                 $variation = $this->variationHelper->getVariationByNumber($fileData['variationNumber']);
                 if (is_null($variation)){
                     //log error
-                    $fileData['error'] = 'There is no variation with this variation number!';
+                    $errorMessages[] = 'There is no variation with this variation number:' . $fileData['variationNumber'];
                 } else{
                     $fileData['itemId'] = $variation['itemId'];
                     $fileData['variationId'] = $variation['variationId'];
@@ -113,15 +112,15 @@ class ReadFilesService
                         (int)$fileData['imagePosition'])
                     ){
                         $fileData['deleted'] = $this->deleteFileFromFtp($file['fileName']);
+                        $filesImportedSuccessfully++;
                     } else {
-                        //log error
+                        $errorMessages[] = 'The image could not be imported (' . $file['fileName'] . ')';
                     }
                 }
 
             }
-            $response[] = $fileData;
         }
 
-        return $response;
+        return $filesImportedSuccessfully . ' out of ' . count($files) . ' files imported successfully.';
     }
 }
