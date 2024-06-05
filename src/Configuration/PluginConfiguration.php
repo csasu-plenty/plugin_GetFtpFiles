@@ -5,7 +5,6 @@ namespace GetFtpFiles\Configuration;
 use Exception;
 use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Log\Loggable;
-use GetFtpFiles\Repositories\SettingRepository;
 
 class PluginConfiguration
 {
@@ -14,21 +13,14 @@ class PluginConfiguration
     const PLUGIN_NAME            = "GetFtpFiles";
 
     /**
-     * @var SettingRepository
-     */
-    private $settingRepository;
-
-    /**
      * @var ConfigRepository
      */
     private $configRepository;
 
     public function __construct(
-        ConfigRepository $configRepository,
-        SettingRepository $settingRepository
+        ConfigRepository $configRepository
     ) {
         $this->configRepository  = $configRepository;
-        $this->settingRepository = $settingRepository;
     }
 
     /**
@@ -38,7 +30,6 @@ class PluginConfiguration
      */
     protected function getConfigValue($configKey)
     {
-        //return $this->settingRepository->get($configKey);
         return $this->configRepository->get(self::PLUGIN_NAME . '.' . $configKey);
     }
 

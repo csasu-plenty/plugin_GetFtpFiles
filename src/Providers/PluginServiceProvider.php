@@ -34,8 +34,6 @@ class PluginServiceProvider extends ServiceProvider
     ) {
         $container->add(CronContainer::DAILY, ProcessFtpFilesCron::class);
         $this->bootProcedures($eventProceduresService);
-
-        $wizardContainerContract->register('GetFtpFiles_wizard', GetFtpFilesAssistant::class);
         $this->getApplication()->register(GetFtpFilesRouteServiceProvider::class);
     }
 
