@@ -1,0 +1,36 @@
+{
+  "formatVersion": 1,
+  "menu": {
+    "settings": {
+      "label": "general.settings",
+      "formFields": {
+        "host": {
+          "type": "inputText",
+          "required": true,
+          "label": "general.host",
+          "options": {}
+        },
+        "port": {
+          "type": "inputText",
+          "required": true,
+          "label": "general.port",
+          "options": {}
+        },
+        "username": {
+          "type": "inputText",
+          "required": true,
+          "label": "general.username",
+          "options": {}
+        },
+        "password": {
+          "type": "inputText",
+          "required": true,
+          "label": "general.password",
+          "options": {
+            "isPassword": true
+          }
+        }
+      }
+    }
+  }
+}
