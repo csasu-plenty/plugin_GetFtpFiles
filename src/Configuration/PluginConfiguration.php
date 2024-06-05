@@ -33,6 +33,9 @@ class PluginConfiguration
         return $this->settingRepository->get($configKey);
     }
 
+    /**
+     * @return array|mixed|string[]
+     */
     public function getSFTPCredentials()
     {
         /** @var SettingRepository $settingsRepository */

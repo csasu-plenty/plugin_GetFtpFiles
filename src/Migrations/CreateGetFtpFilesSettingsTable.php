@@ -17,6 +17,10 @@ class CreateGetFtpFilesSettingsTable
         $migrate->createTable(Setting::class);
     }
 
+    /**
+     * @param Migrate $migrate
+     * @return void
+     */
     protected function rollback(Migrate $migrate)
     {
         $migrate->deleteTable(Setting::class);

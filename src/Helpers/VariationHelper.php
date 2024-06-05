@@ -1,16 +1,19 @@
 <?php
 
 namespace GetFtpFiles\Helpers;
+use GetFtpFiles\Configuration\PluginConfiguration;
 use Plenty\Modules\Item\DataLayer\Models\VariationImage;
 use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
 use Plenty\Modules\Item\VariationImage\Contracts\VariationImageRepositoryContract;
 use Plenty\Modules\Item\ItemImage\Models\ItemImage;
 use Plenty\Modules\Item\Variation\Contracts\VariationLookupRepositoryContract;
-use Plenty\Modules\Item\VariationImage\Repositories\VariationImageRepository;
+use Plenty\Plugin\Log\Loggable;
 use Plenty\Repositories\Models\DeleteResponse;
 
 class VariationHelper
 {
+    use Loggable;
+
     /**
      * @var VariationLookupRepositoryContract
      */
@@ -21,6 +24,10 @@ class VariationHelper
         $this->variationLookupRepository = $variationLookupRepository;
     }
 
+    /**
+     * @param $variationNumber
+     * @return mixed|null
+     */
     public function getVariationByNumber($variationNumber)
     {
         $this->variationLookupRepository->hasNumber($variationNumber);
@@ -33,6 +40,12 @@ class VariationHelper
         return null;
     }
 
+    /**
+     * @param array $imageData
+     * @param int $variationId
+     * @param int $position
+     * @return bool
+     */
     public function addImageToVariation(array $imageData, int $variationId, int $position): bool
     {
         /** @var ItemImageRepositoryContract $itemImageRepository */
@@ -62,6 +75,12 @@ class VariationHelper
                     return true;
                 } else {
                     //the new image was added but the previous could not be deleted
+                    $this->getLogger(__METHOD__)
+                        ->error(PluginConfiguration::PLUGIN_NAME . '::error.previousImageError',
+                            [
+                                'response'  => $response
+                            ]
+                        );
                 }
             }
         }

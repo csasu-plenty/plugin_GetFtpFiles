@@ -3,8 +3,8 @@
 namespace GetFtpFiles\Services;
 
 use GetFtpFiles\Clients\SFTPClient;
+use GetFtpFiles\Configuration\PluginConfiguration;
 use GetFtpFiles\Helpers\VariationHelper;
-use Plenty\Modules\Item\Variation\Models\Variation;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Translation\Translator;
 
@@ -35,6 +35,9 @@ class ReadFilesService
         $this->variationHelper  = $variationHelper;
     }
 
+    /**
+     * @return array|string
+     */
     private function getFtpFileNames()
     {
         try {
@@ -79,9 +82,11 @@ class ReadFilesService
         return $files;
     }
 
+    /**
+     * @return string
+     */
     public function processFtpFiles()
     {
-        $errorMessages = [];
         $filesImportedSuccessfully = 0;
 
         $files = $this->getFtpFileNames();
@@ -89,12 +94,23 @@ class ReadFilesService
         foreach ($files as $file){
             $fileData = $this->getDataFromFileName($file['fileName']);
             if (isset($fileData['error'])){
-                $errorMessages[] = 'Wrong file name for: ' . $file['fileName'];
+                $this->getLogger(__METHOD__)
+                    ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
+                        [
+                            'errorMsg'  => 'Wrong file name',
+                            'fileName'  => $file['fileName']
+                        ]
+                    );
             } else {
                 $variation = $this->variationHelper->getVariationByNumber($fileData['variationNumber']);
                 if (is_null($variation)){
-                    //log error
-                    $errorMessages[] = 'There is no variation with this variation number:' . $fileData['variationNumber'];
+                    $this->getLogger(__METHOD__)
+                        ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
+                            [
+                                'errorMsg'  => 'There is no variation with this variation number:' . $fileData['variationNumber'],
+                                'fileName'  => $file['fileName']
+                            ]
+                        );
                 } else{
                     $fileData['itemId'] = $variation['itemId'];
                     $fileData['variationId'] = $variation['variationId'];
@@ -114,7 +130,13 @@ class ReadFilesService
                         $fileData['deleted'] = $this->deleteFileFromFtp($file['fileName']);
                         $filesImportedSuccessfully++;
                     } else {
-                        $errorMessages[] = 'The image could not be imported (' . $file['fileName'] . ')';
+                        $this->getLogger(__METHOD__)
+                            ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
+                                [
+                                    'errorMsg'  => 'The image could not be imported!',
+                                    'fileName'  => $file['fileName']
+                                ]
+                            );
                     }
                 }
 

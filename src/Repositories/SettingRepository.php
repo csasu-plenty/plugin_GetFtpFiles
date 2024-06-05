@@ -2,12 +2,12 @@
 
 namespace GetFtpFiles\Repositories;
 
-use Plenty\Exceptions\ValidationException;
-use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
-use Plenty\Modules\Plugin\DataBase\Contracts\Model;
 use GetFtpFiles\Contracts\SettingRepositoryContract;
 use GetFtpFiles\Models\Setting;
 use GetFtpFiles\Validators\SettingsSaveValidator;
+use Plenty\Exceptions\ValidationException;
+use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
+use Plenty\Modules\Plugin\DataBase\Contracts\Model;
 
 class SettingRepository implements SettingRepositoryContract
 {
