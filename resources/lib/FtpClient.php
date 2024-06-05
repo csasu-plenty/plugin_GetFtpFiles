@@ -147,6 +147,7 @@ class FtpClient
 
     public function deleteFile(string $fileName): string
     {
+        /*
         if ($fp = fopen('php://temp', 'r+')) {
             try {
                 $this->curlHandle = $this->connect($fileName);
@@ -161,8 +162,23 @@ class FtpClient
                 fclose($fp);
             }
         }
+        */
+        try {
+            $this->curlHandle = $this->connect($fileName);
 
-        return '';
+            curl_setopt($this->curlHandle, CURLOPT_QUOTE, array('DELE ' . $fileName));
+            curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, 1);
+            curl_exec($this->curlHandle);
+
+            if(curl_errno($this->curlHandle)){
+                throw new \Exception(curl_error($this->curlHandle));
+            }
+
+            return true;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+
     }
 
     /**
