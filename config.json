@@ -28,13 +28,13 @@
           "label": "Config.password",
           "options": {
             "isPassword": true
-          },
-          "folderPath": {
-            "type": "inputText",
-            "required": true,
-            "label": "Config.folderPath",
-            "options": {}
           }
+        },
+        "folderPath": {
+          "type": "inputText",
+          "required": true,
+          "label": "Config.folderPath",
+          "options": {}
         }
       }
     }
