@@ -8,10 +8,9 @@ $user       = SdkRestApi::getParam('user');
 $password   = SdkRestApi::getParam('password');
 $port       = SdkRestApi::getParam('port');
 $fileName   = SdkRestApi::getParam('fileName');
-$path       = SdkRestApi::getParam('folderPath');
 
 $ftp = new FtpClient($protocol, $host, $user, $password, $port);
 
-return json_encode($ftp->deleteFile($path . '/' . $fileName));
+return json_encode($ftp->deleteFile($fileName));
 
 
