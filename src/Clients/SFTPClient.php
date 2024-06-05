@@ -39,11 +39,10 @@ class SFTPClient
     }
 
     /**
-     * @param  string  $folderPath
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    public function readFiles(string $folderPath)
+    public function readFiles()
     {
 
         $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_readFiles', [
@@ -52,7 +51,7 @@ class SFTPClient
             'user'             => $this->credentials['ftp_username'],
             'password'         => $this->credentials['ftp_password'],
             'port'             => $this->credentials['ftp_port'],
-            'folderPath'       => $folderPath
+            'folderPath'       => $this->credentials['ftp_folder']
         ]);
 
         if (is_array($result) && array_key_exists('error', $result) && $result['error'] === true) {
@@ -65,7 +64,7 @@ class SFTPClient
                         'host'       => $this->credentials['ftp_hostname'],
                         'user'       => $this->credentials['ftp_username'],
                         'port'       => $this->credentials['ftp_port'],
-                        'folderPath' => $folderPath
+                        'folderPath' => $this->credentials['ftp_folder']
                     ]
                 );
 

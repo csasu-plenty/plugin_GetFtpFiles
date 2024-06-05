@@ -41,7 +41,7 @@ class ReadFilesService
     private function getFtpFileNames()
     {
         try {
-            $files = $this->sftpClient->readFiles('');
+            $files = $this->sftpClient->readFiles();
         } catch (\Exception $exception) {
             $this->getLogger(__METHOD__)
                 ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',

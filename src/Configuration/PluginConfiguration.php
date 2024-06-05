@@ -73,7 +73,7 @@ class PluginConfiguration
             'ftp_username'     => $ftpUser,
             'ftp_password'     => $ftpPassword,
             'ftp_port'         => $ftpPort,
-            'folder'           => $ftpFolder,
+            'ftp_folder'       => $ftpFolder,
         ];
     }
 }
