@@ -145,34 +145,19 @@ class FtpClient
         return '';
     }
 
+    /**
+     * @param string $fileName
+     * @return string
+     * @throws Exception
+     */
     public function deleteFile(string $fileName): string
     {
-        /*
-        if ($fp = fopen('php://temp', 'r+')) {
-            try {
-                $this->curlHandle = $this->connect($fileName);
-                curl_setopt($this->curlHandle, CURLOPT_CUSTOMREQUEST, "DELETE");
-                curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($this->curlHandle, CURLOPT_FILE, $fp);
-                $response = curl_exec($this->curlHandle);
-                rewind($fp);
-
-                return $response;
-            } finally {
-                fclose($fp);
-            }
-        }
-        */
         try {
             $this->curlHandle = $this->connect($fileName);
 
             curl_setopt($this->curlHandle, CURLOPT_QUOTE, array('DELE ' . $fileName));
             curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, 1);
             $response = curl_exec($this->curlHandle);
-
-//            if(curl_errno($this->curlHandle)){
-//                throw new \Exception(curl_error($this->curlHandle));
-//            }
 
             return $response;
         } catch (Exception $exception) {
