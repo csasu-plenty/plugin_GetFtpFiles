@@ -1,0 +1,34 @@
+{
+    "name": "GetFtpFiles",
+    "marketplaceName":
+    {
+        "de": "GetFtpFiles",
+        "en": "GetFtpFiles"
+    },
+    "platform" : {
+        "php" : ">=7.3,<8.1"
+      },
+    "namespace": "GetFtpFiles",
+    "author": "plentysystems AG",
+    "type": "backend",
+    "version": "1.0.0",
+    "isClosedSource": true,
+    "authorIcon": "icon_author_xs.png",
+    "pluginIcon": "icon_plugin_xs.png",
+    "email": "info@plentymarkets.com",
+    "phone": "",
+    "description": "GetFtpFiles",
+    "shortDescription": {
+        "de": "GetFtpFiles short description",
+        "en": "GetFtpFiles short description"
+    },
+    "keywords": ["GetFtpFiles"],
+    "categories": ["4124"],
+    "serviceProvider": "GetFtpFiles\\Providers\\PluginServiceProvider",
+    "runOnBuild": [
+        "GetFtpFiles\\Migrations\\CreateGetFtpFilesSettingsTable"
+    ],
+    "dependencies": {
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
