@@ -82,25 +82,13 @@ class FtpClient
     }
 
     /**
-     * @param $remote
-     * @return string
-     */
-    private function removeFirstSlash($remote) : string
-    {
-        if ((strlen($remote) > 0) && ($remote[0] === '/')){
-            return substr($remote, 1);
-        }
-        return $remote;
-    }
-
-    /**
      * @param  string  $remote
      *
      * @return false|int|resource
      */
     private function connect(string $remote)
     {
-        $currentPath = $this->protocol . $this->host . '/' . $this->removeFirstSlash($remote) . '/';
+        $currentPath = $this->protocol . $this->host . '/' . trim($remote, '/') . '/';
 
         curl_reset($this->curlHandle);
         curl_setopt($this->curlHandle, CURLOPT_URL, $currentPath);

@@ -20,7 +20,7 @@ foreach ($allEntries as $entry) {
     if(empty($entry) || is_dir($entry)){
         continue;
     }
-    $fileContents = $ftp->downloadFile($path . '/' . $entry);
+    $fileContents = $ftp->downloadFile(rtrim($path) . '/' . $entry);
     $files[] = [
         'fileName'  => $entry,
         'contents'  => $fileContents
