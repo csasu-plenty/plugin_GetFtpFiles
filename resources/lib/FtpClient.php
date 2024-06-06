@@ -155,7 +155,7 @@ class FtpClient
         try {
             $this->curlHandle = $this->connect('');
 
-            curl_setopt($this->curlHandle, CURLOPT_QUOTE, array('DELE ftp.sasu.ro/abc/' . $fileName));
+            curl_setopt($this->curlHandle, CURLOPT_QUOTE, array('DELE ' . $fileName));
             curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, 1);
             $response = curl_exec($this->curlHandle);
 
