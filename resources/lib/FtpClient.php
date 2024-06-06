@@ -122,7 +122,7 @@ class FtpClient
      * @return array
      */
     public function getFileNames(string $path): array
-    {
+    {return $this->protocol . $this->host . '/' . $this->removeFirstSlash($path);
         $this->curlHandle = $this->connect($path);
 
         curl_setopt($this->curlHandle, CURLOPT_UPLOAD, 0);
