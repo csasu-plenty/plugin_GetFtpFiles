@@ -100,7 +100,7 @@ class FtpClient
      */
     private function connect(string $remote)
     {
-        $currentPath = $this->protocol . $this->host . '/' . $this->removeFirstSlash($remote);
+        $currentPath = $this->protocol . $this->host . '/' . $this->removeFirstSlash($remote) . '/';
 
         curl_reset($this->curlHandle);
         curl_setopt($this->curlHandle, CURLOPT_URL, $currentPath);
@@ -122,7 +122,7 @@ class FtpClient
      * @return array
      */
     public function getFileNames(string $path): array
-    {return [$this->protocol . $this->host . '/' . $this->removeFirstSlash($path)];
+    {
         $this->curlHandle = $this->connect($path);
 
         curl_setopt($this->curlHandle, CURLOPT_UPLOAD, 0);

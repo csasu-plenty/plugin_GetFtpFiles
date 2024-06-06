@@ -12,7 +12,7 @@ $path       = SdkRestApi::getParam('folderPath');
 $ftp = new FtpClient($protocol, $host, $user, $password, $port);
 
 $allEntries = $ftp->getFileNames($path);
-return $allEntries;
+
 $files = [];
 
 foreach ($allEntries as $entry) {
