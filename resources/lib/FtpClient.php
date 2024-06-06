@@ -88,10 +88,8 @@ class FtpClient
      */
     private function connect(string $remote)
     {
-        $currentPath = $this->protocol . $this->host . '/' . $remote;
-
         curl_reset($this->curlHandle);
-        curl_setopt($this->curlHandle, CURLOPT_URL, $currentPath);
+        curl_setopt($this->curlHandle, CURLOPT_URL, $this->protocol . $this->host . '/' . $remote);
         curl_setopt($this->curlHandle, CURLOPT_USERPWD, $this->user . ':' . $this->password);
         curl_setopt($this->curlHandle, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($this->curlHandle, CURLOPT_SSL_VERIFYHOST, false);
