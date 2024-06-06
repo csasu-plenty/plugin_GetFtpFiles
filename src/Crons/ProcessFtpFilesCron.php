@@ -5,6 +5,7 @@ namespace GetFtpFiles\Crons;
 use GetFtpFiles\Configuration\PluginConfiguration;
 use GetFtpFiles\Services\ReadFilesService;
 use Plenty\Modules\Cron\Contracts\CronHandler;
+use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Log\Loggable;
 use Throwable;
 
@@ -16,18 +17,25 @@ class ProcessFtpFilesCron extends CronHandler
      * @param ReadFilesService $readFilesService
      * @return void
      */
-    public function handle(ReadFilesService $readFilesService)
+    public function handle(
+        ReadFilesService $readFilesService,
+        ConfigRepository $configRepository
+    )
     {
-        $this->getLogger(__METHOD__)
-            ->info(PluginConfiguration::PLUGIN_NAME . '::general.cronStarted');
+        $cronActive = $configRepository->get(PluginConfiguration::PLUGIN_NAME . '.importCron');
+        if ($cronActive) {
+            $this->getLogger(__METHOD__)
+                ->info(PluginConfiguration::PLUGIN_NAME . '::general.cronStarted');
 
-        $response = $readFilesService->processFtpFiles();
+            $response = $readFilesService->processFtpFiles();
 
-        $this->getLogger(__METHOD__)
-            ->info(PluginConfiguration::PLUGIN_NAME . '::general.cronEnded',
-                [
-                    'message'  => $response
-                ]
-            );
+            $this->getLogger(__METHOD__)
+                ->info(
+                    PluginConfiguration::PLUGIN_NAME . '::general.cronEnded',
+                    [
+                        'message' => $response
+                    ]
+                );
+        }
     }
 }

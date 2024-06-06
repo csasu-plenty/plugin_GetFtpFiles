@@ -35,6 +35,13 @@
           "required": false,
           "label": "Config.folderPath",
           "options": {}
+        },
+        "cronactive": {
+          "type": "checkBox",
+          "required": false,
+          "defaultValue": false,
+          "label": "Config.importCron",
+          "options": {}
         }
       }
     }
