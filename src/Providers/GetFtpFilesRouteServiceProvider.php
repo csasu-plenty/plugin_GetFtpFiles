@@ -17,7 +17,7 @@ class GetFtpFilesRouteServiceProvider extends RouteServiceProvider
     {
         $apiRouter->version(['v1'], ['namespace' => 'GetFtpFiles\Controllers', 'middleware' => 'oauth'],
             function ($apiRouter) {
-                $apiRouter->get('GetFtpFiles/test_route/', 'TestController@testMethod');
+                $apiRouter->get('GetFtpFiles/import_images/', 'TestController@importImages');
             }
         );
     }

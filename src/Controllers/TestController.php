@@ -10,7 +10,7 @@ class TestController extends Controller
 {
     use Loggable;
 
-    public function testMethod(ReadFilesService $filesService)
+    public function importImages(ReadFilesService $filesService)
     {
         return $filesService->processFtpFiles();
     }
