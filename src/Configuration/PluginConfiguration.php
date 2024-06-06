@@ -38,10 +38,11 @@ class PluginConfiguration
      */
     public function getSFTPCredentials(): array
     {
-        $ftpHost = $this->getConfigValue('host');
-        $ftpUser = $this->getConfigValue('username');
-        $ftpPassword = $this->getConfigValue('password');
-        $ftpPort = $this->getConfigValue('port');
+        $ftpHost        = $this->getConfigValue('host');
+        $ftpUser        = $this->getConfigValue('username');
+        $ftpPassword    = $this->getConfigValue('password');
+        $ftpPort        = $this->getConfigValue('port');
+        $folderPath     = $this->getConfigValue('folderpath');
 
         if ($ftpHost === null || $ftpUser === null || $ftpPassword === null || $ftpPort === null) {
             $this->getLogger(__METHOD__)->error(self::PLUGIN_NAME . '::error.mandatoryCredentialsAreNotSet',
@@ -49,7 +50,8 @@ class PluginConfiguration
                     'ftp_hostname'     => $ftpHost,
                     'ftp_username'     => $ftpUser,
                     'ftp_password'     => $ftpPassword,
-                    'ftp_port'         => $ftpPort
+                    'ftp_port'         => $ftpPort,
+                    'ftp_folderPath'   => $folderPath
                 ]);
 
             return [

@@ -82,14 +82,28 @@ class FtpClient
     }
 
     /**
+     * @param $remote
+     * @return string
+     */
+    private function removeFirstSlash($remote) : string
+    {
+        if ((strlen($remote) > 0) && ($remote[0] === '/')){
+            return substr($remote, 1);
+        }
+        return $remote;
+    }
+
+    /**
      * @param  string  $remote
      *
      * @return false|int|resource
      */
     private function connect(string $remote)
     {
+        $currentPath = $this->protocol . $this->host . '/' . $this->removeFirstSlash($remote);
+
         curl_reset($this->curlHandle);
-        curl_setopt($this->curlHandle, CURLOPT_URL, $this->protocol . $this->host . '/' . $remote);
+        curl_setopt($this->curlHandle, CURLOPT_URL, $currentPath);
         curl_setopt($this->curlHandle, CURLOPT_USERPWD, $this->user . ':' . $this->password);
         curl_setopt($this->curlHandle, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($this->curlHandle, CURLOPT_SSL_VERIFYHOST, false);

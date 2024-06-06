@@ -50,7 +50,8 @@ class SFTPClient
             'host'             => $this->credentials['ftp_hostname'],
             'user'             => $this->credentials['ftp_username'],
             'password'         => $this->credentials['ftp_password'],
-            'port'             => $this->credentials['ftp_port']
+            'port'             => $this->credentials['ftp_port'],
+            'folderPath'       => $this->credentials['ftp_folderPath']
         ]);
 
         if (is_array($result) && array_key_exists('error', $result) && $result['error'] === true) {
@@ -62,7 +63,8 @@ class SFTPClient
                         'errorLine'  => $result['error_line'],
                         'host'       => $this->credentials['ftp_hostname'],
                         'user'       => $this->credentials['ftp_username'],
-                        'port'       => $this->credentials['ftp_port']
+                        'port'       => $this->credentials['ftp_port'],
+                        'folderPath'       => $this->credentials['ftp_folderPath']
                     ]
                 );
 
@@ -86,6 +88,7 @@ class SFTPClient
             'user'             => $this->credentials['ftp_username'],
             'password'         => $this->credentials['ftp_password'],
             'port'             => $this->credentials['ftp_port'],
+            'folderPath'       => $this->credentials['ftp_folderPath'],
             'fileName'         => $fileName
         ]);
 
@@ -99,6 +102,7 @@ class SFTPClient
                         'host'       => $this->credentials['ftp_hostname'],
                         'user'       => $this->credentials['ftp_username'],
                         'port'       => $this->credentials['ftp_port'],
+                        'folderPath'       => $this->credentials['ftp_folderPath'],
                         'fileName'   => $fileName
                     ]
                 );

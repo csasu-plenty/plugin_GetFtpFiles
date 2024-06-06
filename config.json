@@ -29,6 +29,12 @@
           "options": {
             "isPassword": true
           }
+        },
+        "folderpath": {
+          "type": "inputText",
+          "required": false,
+          "label": "Config.folderPath",
+          "options": {}
         }
       }
     }
