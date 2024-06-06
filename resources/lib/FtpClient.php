@@ -88,7 +88,7 @@ class FtpClient
      */
     private function connect(string $remote)
     {
-        $currentPath = $this->protocol . $this->host . '/' . trim($remote, '/') . '/';
+        $currentPath = $this->protocol . $this->host . '/' . $remote;
 
         curl_reset($this->curlHandle);
         curl_setopt($this->curlHandle, CURLOPT_URL, $currentPath);
@@ -111,7 +111,7 @@ class FtpClient
      */
     public function getFileNames(string $path): array
     {
-        $this->curlHandle = $this->connect($path);
+        $this->curlHandle = $this->connect($path . '/');
 
         curl_setopt($this->curlHandle, CURLOPT_UPLOAD, 0);
         curl_setopt($this->curlHandle, CURLOPT_FTPLISTONLY, 1);
