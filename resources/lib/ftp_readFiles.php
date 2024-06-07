@@ -23,4 +23,4 @@ foreach ($allEntries as $entry) {
     $files[] = $entry;
 }
 
-return $files;
+return asort($files);
