@@ -13,7 +13,6 @@ $ftp = new FtpClient($protocol, $host, $user, $password, $port);
 
 $allEntries = $ftp->getFileNames($path);
 
-/*
 $files = [];
 
 foreach ($allEntries as $entry) {
@@ -21,13 +20,7 @@ foreach ($allEntries as $entry) {
     if(empty($entry) || is_dir($entry)){
         continue;
     }
-    $fileContents = $ftp->downloadFile($path . '/' . $entry);
-    $files[] = [
-        'fileName'  => $entry,
-        'contents'  => $fileContents
-    ];
+    $files = $entry;
 }
 
 return $files;
-*/
-return $allEntries;
