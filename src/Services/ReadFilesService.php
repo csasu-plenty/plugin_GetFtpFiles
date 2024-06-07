@@ -128,45 +128,46 @@ class ReadFilesService
                             'fileName'  => $file
                         ]
                     );
-            } else {
-                $variation = $this->variationHelper->getVariationByNumber($fileData['variationNumber']);
-                if (is_null($variation)){
-                    $this->getLogger(__METHOD__)
-                        ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
-                            [
-                                'errorMsg'  => 'There is no variation with this variation number:' . $fileData['variationNumber'],
-                                'fileName'  => $file
-                            ]
-                        );
-                } else{
-                    $fileData['itemId'] = $variation['itemId'];
-                    $fileData['variationId'] = $variation['variationId'];
-                    $fileData['imageData'] = $this->getFileContents($file);
+                continue;
+            }
 
-                    if ($this->variationHelper->addImageToVariation(
+            $variation = $this->variationHelper->getVariationByNumber($fileData['variationNumber']);
+            if (is_null($variation)){
+                $this->getLogger(__METHOD__)
+                    ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
                         [
-                            'fileType'          => $fileData['fileExtension'],
-                            'uploadFileName'    => $fileData['fileName'],
-                            'uploadImageData'   => $fileData['imageData'],
-                            'itemId'            => $fileData['itemId'],
-                            'variationId'       => $fileData['variationId'],
-                        ],
-                        (int)$fileData['variationId'],
-                        (int)$fileData['imagePosition'])
-                    ){
-                        $fileData['deleted'] = $this->deleteFileFromFtp($file);
-                        $filesImportedSuccessfully++;
-                    } else {
-                        $this->getLogger(__METHOD__)
-                            ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
-                                [
-                                    'errorMsg'  => 'The image could not be imported!',
-                                    'fileName'  => $file
-                                ]
-                            );
-                    }
-                }
+                            'errorMsg'  => 'There is no variation with this variation number:' . $fileData['variationNumber'],
+                            'fileName'  => $file
+                        ]
+                    );
+                continue;
+            }
 
+            $fileData['itemId'] = $variation['itemId'];
+            $fileData['variationId'] = $variation['variationId'];
+            $fileData['imageData'] = $this->getFileContents($file);
+
+            if ($this->variationHelper->addImageToVariation(
+                [
+                    'fileType'          => $fileData['fileExtension'],
+                    'uploadFileName'    => $fileData['fileName'],
+                    'uploadImageData'   => $fileData['imageData'],
+                    'itemId'            => $fileData['itemId'],
+                    'variationId'       => $fileData['variationId'],
+                ],
+                (int)$fileData['variationId'],
+                (int)$fileData['imagePosition'])
+            ){
+                $fileData['deleted'] = $this->deleteFileFromFtp($file);
+                $filesImportedSuccessfully++;
+            } else {
+                $this->getLogger(__METHOD__)
+                    ->error(PluginConfiguration::PLUGIN_NAME . '::error.readFilesError',
+                        [
+                            'errorMsg'  => 'The image could not be imported!',
+                            'fileName'  => $file
+                        ]
+                    );
             }
         }
 
