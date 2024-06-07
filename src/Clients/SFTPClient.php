@@ -44,7 +44,34 @@ class SFTPClient
      */
     public function readFiles()
     {
+        $ftp = new FtpClient(
+            self::TRANSFER_PROTOCOL,
+            rtrim($this->credentials['ftp_hostname'], '/'),
+            $this->credentials['ftp_username'],
+            $this->credentials['ftp_password'],
+            $this->credentials['ftp_port']
+        );
+        $path = trim($this->credentials['ftp_folderPath'], '/');
 
+        $allEntries = $ftp->getFileNames($path);
+
+        $files = [];
+
+        foreach ($allEntries as $entry) {
+
+            if(empty($entry) || is_dir($entry)){
+                continue;
+            }
+            $fileContents = $ftp->downloadFile($path . '/' . $entry);
+            $files[] = [
+                'fileName'  => $entry,
+                'contents'  => $fileContents
+            ];
+        }
+
+        return $files;
+
+        /*
         $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_readFiles', [
             'transferProtocol' => self::TRANSFER_PROTOCOL,
             'host'             => $this->credentials['ftp_hostname'],
@@ -72,16 +99,26 @@ class SFTPClient
         }
 
         return $result;
+        */
     }
 
     /**
      * @param string $fileName
-     * @return array
-     * @throws Exception
+     * @return false|string
      */
     public function deleteFile(string $fileName)
     {
+        $ftp = new FtpClient(
+            self::TRANSFER_PROTOCOL,
+            rtrim($this->credentials['ftp_hostname'], '/'),
+            $this->credentials['ftp_username'],
+            $this->credentials['ftp_password'],
+            $this->credentials['ftp_port']
+        );
+        $path = trim($this->credentials['ftp_folderPath'], '/');
 
+        return json_encode($ftp->deleteFile($path . '/' . $fileName));
+        /*
         $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_deleteFile', [
             'transferProtocol' => self::TRANSFER_PROTOCOL,
             'host'             => $this->credentials['ftp_hostname'],
@@ -111,5 +148,6 @@ class SFTPClient
         }
 
         return $result;
+        */
     }
 }
