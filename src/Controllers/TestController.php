@@ -14,4 +14,9 @@ class TestController extends Controller
     {
         return $filesService->processFtpFiles();
     }
+
+    public function testMethod(ReadFilesService $filesService)
+    {
+        return $filesService->processFtpFiles();
+    }
 }
