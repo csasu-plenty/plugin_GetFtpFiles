@@ -22,7 +22,7 @@ class ProcessFtpFilesCron extends CronHandler
         ConfigRepository $configRepository
     )
     {
-        $cronActive = true;//$configRepository->get(PluginConfiguration::PLUGIN_NAME . '.cronactive');
+        $cronActive = $configRepository->get(PluginConfiguration::PLUGIN_NAME . '.cronactive');
         if ($cronActive) {
             $this->getLogger(__METHOD__)
                 ->info(PluginConfiguration::PLUGIN_NAME . '::general.cronStarted');
