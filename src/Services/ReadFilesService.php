@@ -82,7 +82,7 @@ class ReadFilesService
 
         $dataParts = explode('_', $fileName);
 
-        $fileData['fileName'] = $fileName;
+        $fileData['fileName'] = time() . $fileName;
         if (count($dataParts) != 2){
             $fileData['error'] = 'File structure corrupt!';
         } else {
