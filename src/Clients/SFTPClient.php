@@ -44,6 +44,7 @@ class SFTPClient
      */
     public function readFiles()
     {
+        /*
         $ftp = new FtpClient(
             self::TRANSFER_PROTOCOL,
             rtrim($this->credentials['ftp_hostname'], '/'),
@@ -70,8 +71,8 @@ class SFTPClient
         }
 
         return $files;
+        */
 
-        /*
         $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_readFiles', [
             'transferProtocol' => self::TRANSFER_PROTOCOL,
             'host'             => $this->credentials['ftp_hostname'],
@@ -99,15 +100,17 @@ class SFTPClient
         }
 
         return $result;
-        */
+
     }
 
     /**
      * @param string $fileName
-     * @return false|string
+     * @return array
+     * @throws Exception
      */
     public function deleteFile(string $fileName)
     {
+        /*
         $ftp = new FtpClient(
             self::TRANSFER_PROTOCOL,
             rtrim($this->credentials['ftp_hostname'], '/'),
@@ -118,7 +121,7 @@ class SFTPClient
         $path = trim($this->credentials['ftp_folderPath'], '/');
 
         return json_encode($ftp->deleteFile($path . '/' . $fileName));
-        /*
+        */
         $result = $this->library->call(PluginConfiguration::PLUGIN_NAME . '::ftp_deleteFile', [
             'transferProtocol' => self::TRANSFER_PROTOCOL,
             'host'             => $this->credentials['ftp_hostname'],
@@ -128,6 +131,7 @@ class SFTPClient
             'folderPath'       => $this->credentials['ftp_folderPath'],
             'fileName'         => $fileName
         ]);
+
 
         if (is_array($result) && array_key_exists('error', $result) && $result['error'] === true) {
             $this->getLogger(__METHOD__)
@@ -148,6 +152,5 @@ class SFTPClient
         }
 
         return $result;
-        */
     }
 }
