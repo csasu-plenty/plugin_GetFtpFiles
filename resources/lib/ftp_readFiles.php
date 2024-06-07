@@ -20,7 +20,7 @@ foreach ($allEntries as $entry) {
     if(empty($entry) || is_dir($entry)){
         continue;
     }
-    $files = $entry;
+    $files[] = $entry;
 }
 
 return $files;
